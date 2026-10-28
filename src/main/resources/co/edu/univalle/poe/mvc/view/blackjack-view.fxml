@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.univalle.poe.mvc.controller.BlackJackController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" style="-fx-background-color: #1b4d3e;;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="21 BLACK JACK" textFill="#fffefe">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white;;">
+               <children>
+                  <Label fx:id="lblPuntajeBanca" text="Banca: 0 pts" textFill="WHITE" />
+                  <HBox fx:id="contenedorCartasBanca" alignment="CENTER" prefHeight="130.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white;;">
+               <children>
+                  <Label fx:id="lblPuntajeJugador" text="Jugador: 0 pts" textFill="WHITE" />
+                  <HBox fx:id="contenedorCartasJugador" alignment="CENTER" prefHeight="130.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <Label fx:id="lblMensaje" text="Ingresa tu apuesta para iniciar la ronda." textFill="YELLOW" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label fx:id="lblSaldo" text="Saldo: $1000" textFill="WHITE" />
+                  <TextField fx:id="txtApuesta" promptText="Apuesta" />
+                  <Button fx:id="btnIiniciar" mnemonicParsing="false" onAction="#onIniciarRonda" text="Iniciar Ronda" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Button fx:id="btnPedir" disable="true" mnemonicParsing="false" onAction="#onPedirCarta" text="Pedir Carta" />
+                  <Button fx:id="btnPlantarse" disable="true" mnemonicParsing="false" onAction="#onPlantarse" text="Plantarse" />
+                  <Button fx:id="btnReglas" mnemonicParsing="false" onAction="#onVerReglas" text="Ver Reglas" />
+                  <Button fx:id="btnCerrar" mnemonicParsing="false" onAction="#onCerrarJuego" text="Cerrar Juego" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
