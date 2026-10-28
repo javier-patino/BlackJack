@@ -48,7 +48,7 @@ public class BlackJackController {
         if (btnIniciar != null) btnIniciar.setDisable(false);
     }
 
-    // Ventana emergente de Reglas al estilo de la profesora
+    // Ventana emergente de Reglas
     @FXML
     public void onVerReglas() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -63,7 +63,7 @@ public class BlackJackController {
         alert.showAndWait();
     }
 
-    // Ventana emergente de Confirmación de Cierre idéntica al ejemplo de la profesora
+    // Ventana emergente de Confirmación
     @FXML
     public void onCerrarJuego(Event event) {
         Alert alert = new Alert(Alert.AlertType.NONE);
