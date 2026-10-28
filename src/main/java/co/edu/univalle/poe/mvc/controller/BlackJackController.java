@@ -133,22 +133,76 @@ public class BlackJackController {
         }
     }
 
+
     private void mostrarCartas(Mano mano, HBox contenedor) {
         for (Carta carta : mano.getCartas()) {
-            Label etiquetaCarta = new Label(carta.toString());
+            String nombreArchivo = obtenerNombreArchivo(carta);
 
-            etiquetaCarta.setStyle(
-                    "-fx-background-color: white;"
-                            + "-fx-border-color: #c9c9c9;"
-                            + "-fx-border-radius: 8;"
-                            + "-fx-background-radius: 8;"
-                            + "-fx-padding: 12;"
-                            + "-fx-font-size: 13px;"
+            java.net.URL recurso = getClass().getResource(
+                    "/co/edu/univalle/poe/mvc/images/" + nombreArchivo
             );
 
-            contenedor.getChildren().add(etiquetaCarta);
+            if (recurso == null) {
+                System.err.println("No se encontró la imagen: " + nombreArchivo);
+                Label etiqueta = new Label(carta.toString());
+                contenedor.getChildren().add(etiqueta);
+                continue;
+            }
+
+            Image imagen = new Image(recurso.toExternalForm());
+            ImageView imagenCarta = new ImageView(imagen);
+
+            imagenCarta.setFitWidth(85);
+            imagenCarta.setFitHeight(125);
+            imagenCarta.setPreserveRatio(true);
+            imagenCarta.setSmooth(true);
+
+            contenedor.getChildren().add(imagenCarta);
         }
     }
+
+    private String obtenerNombreArchivo(Carta carta) {
+        String palo = carta.getPalo().toLowerCase();
+
+        switch (palo) {
+            case "tréboles":
+            case "treboles":
+            case "trébol":
+            case "trebol":
+            case "clubs":
+                palo = "clubs";
+                break;
+
+            case "diamantes":
+            case "diamante":
+            case "diamonds":
+                palo = "diamonds";
+                break;
+
+            case "corazones":
+            case "corazón":
+            case "corazon":
+            case "hearts":
+                palo = "hearts";
+                break;
+
+            case "picas":
+            case "pica":
+            case "espadas":
+            case "espada":
+            case "spades":
+                palo = "spades";
+                break;
+
+            default:
+                throw new IllegalArgumentException(
+                        "Palo de carta no reconocido: " + carta.getPalo()
+                );
+        }
+
+        return palo + "_" + carta.getNombreValor() + ".png";
+    }
+
 
     private void actualizarBotones() {
         boolean enCurso = partida.isPartidaEnCurso();
@@ -169,26 +223,40 @@ public class BlackJackController {
 
         alert.setContentText(
                 "1. El jugador comienza con 1000 fichas.\n\n"
-                        + "2. La apuesta mínima es de 10 fichas y debe ser "
-                        + "múltiplo de 10.\n\n"
-                        + "3. El objetivo es acercarse a 21 sin superarlo.\n\n"
+                        + "2. La apuesta mínima es de 10 fichas, "
+                        + "debe ser múltiplo de 10 y no superar el saldo.\n\n"
+                        + "3. El objetivo es obtener un puntaje mayor que "
+                        + "el computador sin superar 21.\n\n"
                         + "4. Las cartas del 2 al 10 valen su número; "
                         + "J, Q y K valen 10. El As vale 1 u 11.\n\n"
                         + "5. La banca pide cartas mientras tenga menos de 17.\n\n"
                         + "6. Blackjack es un As y una carta de valor 10 "
-                        + "en las dos cartas iniciales."
+                        + "en las dos cartas iniciales.\n\n"
+                        + "7. Veinte y medio se obtiene con una figura "
+                        + "(J, Q o K) y un 4 en las dos cartas iniciales. "
+                        + "No otorga un premio adicional.\n\n"
+                        + "8. Si superas 21 puntos, pierdes la ronda.\n\n"
+                        + "9. En un empate se devuelve la apuesta.\n\n"
+                        + "10. Una victoria normal devuelve la apuesta "
+                        + "y acredita una cantidad igual. "
+                        + "Blackjack devuelve la apuesta y acredita "
+                        + "1,5 veces su valor como ganancia adicional."
         );
+        //Para que se vean todas las reglas y no se corte el cuadro//
+        TextArea areaReglas = new TextArea(alert.getContentText());
+        areaReglas.setEditable(false);
+        areaReglas.setWrapText(true);
+        areaReglas.setPrefColumnCount(48);
+        areaReglas.setPrefRowCount(16);
+
+        alert.getDialogPane().setContent(areaReglas);
+        alert.getDialogPane().setPrefWidth(580);
+        alert.getDialogPane().setPrefHeight(540);
 
         alert.showAndWait();
     }
 
-    /**
-     * Solicita confirmación antes de cerrar la aplicación.
-     *
-     * @param event evento de cierre generado por la interfaz.
-     * @author Anderson Romero
-     * @author Javier Patiño
-     */
+    //Solicita confirmación antes de cerrar la aplicación. @param event evento de cierre generado por la interfaz.//
     @FXML
     public void onCerrarJuego(Event event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
