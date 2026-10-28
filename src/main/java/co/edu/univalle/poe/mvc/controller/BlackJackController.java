@@ -55,10 +55,11 @@ public class BlackJackController {
         alert.setTitle("Reglas del Juego");
         alert.setHeaderText("Instrucciones de 21 BlackJack");
         alert.setContentText(
-                "1. El objetivo es sumar 21 o acercarse sin pasarse.\n" +
-                        "2. Las cartas del 2 al 10 valen su número.\n" +
-                        "3. J, Q y K valen 10 puntos. El As vale 11 o 1.\n" +
-                        "4. La Banca pide carta si tiene menos de 17 puntos."
+                "1. El objetivo es sumar 21 o acercarse sin pasarte.\n" +
+                        "2. Las cartas del 2 al 10 valen su número; J, Q y K valen 10. El As vale 11 o 1.\n" +
+                        "3. La apuesta debe ser número entero, múltiplo de 10 y de mínimo 10 fichas.\n" +
+                        "4. Jugada 'Veinte y Medio': Se logra con una Figura (J, Q, K) y un 4 en las dos primeras cartas.\n" +
+                        "5. La Banca no recibe cartas al inicio; jugará al final y pedirá mientras sume menos de 17."
         );
         alert.showAndWait();
     }
