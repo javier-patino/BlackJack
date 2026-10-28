@@ -36,7 +36,7 @@
                <children>
                   <Label fx:id="lblSaldo" text="Saldo: $1000" textFill="WHITE" />
                   <TextField fx:id="txtApuesta" promptText="Apuesta" />
-                  <Button fx:id="btnIiniciar" mnemonicParsing="false" onAction="#onIniciarRonda" text="Iniciar Ronda" />
+                  <Button fx:id="btnIniciar" mnemonicParsing="false" onAction="#onIniciarRonda" text="Iniciar Ronda" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
