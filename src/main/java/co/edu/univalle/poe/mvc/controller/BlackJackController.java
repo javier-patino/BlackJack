@@ -1,10 +1,13 @@
 package co.edu.univalle.poe.mvc.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import java.util.Optional;
 
 public class BlackJackController {
 
@@ -45,13 +48,40 @@ public class BlackJackController {
         if (btnIniciar != null) btnIniciar.setDisable(false);
     }
 
+    // Ventana emergente de Reglas al estilo de la profesora
     @FXML
     public void onVerReglas() {
-        if (lblMensaje != null) lblMensaje.setText("Reglas: Suma 21 o acércate sin pasarte.");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Reglas del Juego");
+        alert.setHeaderText("Instrucciones de 21 BlackJack");
+        alert.setContentText(
+                "1. El objetivo es sumar 21 o acercarse sin pasarse.\n" +
+                        "2. Las cartas del 2 al 10 valen su número.\n" +
+                        "3. J, Q y K valen 10 puntos. El As vale 11 o 1.\n" +
+                        "4. La Banca pide carta si tiene menos de 17 puntos."
+        );
+        alert.showAndWait();
     }
 
+    // Ventana emergente de Confirmación de Cierre idéntica al ejemplo de la profesora
     @FXML
-    public void onCerrarJuego() {
-        System.exit(0);
+    public void onCerrarJuego(Event event) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Confirmación de Cierre");
+        alert.setHeaderText("¿Está seguro que quiere cerrar el juego?");
+        alert.setContentText("Si confirmas, se cerrará la aplicación de BlackJack.");
+
+        ButtonType btnNo = new ButtonType("No, continuar jugando", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType btnSi = new ButtonType("Sí, salir de BlackJack");
+        alert.getButtonTypes().addAll(btnNo, btnSi);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()) {
+            if (result.get() == btnNo) {
+                if (event != null) event.consume();
+            } else {
+                System.exit(0);
+            }
+        }
     }
 }
